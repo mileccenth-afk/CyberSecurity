@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSafe: Cybersecurity Awareness Website for Students</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#FDF2F4',
+                            100: '#F9E2E6',
+                            500: '#A31D32',
+                            600: '#801323',
+                            700: '#6B1124',
+                            800: '#4A0E17',
+                            900: '#2D080E',
+                            950: '#180307'
+                        },
+                        cream: {
+                            50: '#FFFFFF',
+                            100: '#FDFBF7',
+                            200: '#F4EBE1',
+                            300: '#E9DDD0',
+                            400: '#D5C3B2',
+                            800: '#3D352E'
+                        },
+                        darkbg: {
+                            800: '#1E1E1E',
+                            900: '#121212',
+                            950: '#0A0A0A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #FDFBF7;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .bg-cream-card {
+            background-color: #FDFBF7;
+            color: #121212;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #2D080E;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #6B1124;
+            border-radius: 4px;
+        }
+        .glass-panel {
+            background: rgba(45, 8, 14, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 235, 225, 0.15);
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableCertificate, #printableCertificate * {
+                visibility: visible;
+            }
+            #printableCertificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                border: 10px solid #4A0E17;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-burgundy-600 selection:text-cream-100 custom-scrollbar">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-darkbg-950 text-cream-300 text-xs py-2 px-4 text-center border-b border-burgundy-900 flex justify-between items-center">
+        <span class="mx-auto flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-burgundy-500 animate-pulse"></i>
+            <span>CyberSafe Educational Portal — BSIT Cybersecurity Awareness &amp; Ethics System</span>
+        </span>
+        <div id="topUserBadge" class="hidden sm:flex items-center gap-2 text-[11px] bg-burgundy-900/90 px-3 py-1 rounded-full border border-burgundy-700">
+            <i class="fa-solid fa-circle-user text-cream-200"></i>
+            <span id="topUserDisplay" class="font-semibold">Guest Student</span>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 bg-burgundy-950/90 backdrop-blur-md border-b border-burgundy-800/80 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-burgundy-800 to-burgundy-600 border border-cream-200/30 flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-user-shield text-cream-100 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold font-serif text-cream-100 tracking-wide">Cyber<span class="text-burgundy-600 bg-cream-100 px-2 py-0.5 rounded-lg ml-0.5 shadow-sm">Safe</span></span>
+                        <p class="text-[10px] text-cream-400 tracking-wider uppercase font-semibold">Student Digital Hygiene</p>
+                    </div>
+                </div>
+
+                <!-- DESKTOP NAVIGATION -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="navigateTo('home')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-semibold text-cream-100 hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-house mr-1.5 text-xs text-burgundy-500"></i>Home
+                    </button>
+                    <button onclick="navigateTo('modules')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-medium text-cream-300 hover:text-white hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-book-open mr-1.5 text-xs text-burgundy-500"></i>Modules
+                    </button>
+                    <button onclick="navigateTo('simulator')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-medium text-cream-300 hover:text-white hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs text-burgundy-500"></i>Phishing Lab
+                    </button>
+                    <button onclick="navigateTo('quiz')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-medium text-cream-300 hover:text-white hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-gamepad mr-1.5 text-xs text-burgundy-500"></i>Quizzes
+                    </button>
+                    <button onclick="navigateTo('tools')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-medium text-cream-300 hover:text-white hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-key mr-1.5 text-xs text-burgundy-500"></i>Password Tool
+                    </button>
+                    <button onclick="navigateTo('admin')" class="nav-btn px-3 py-2 rounded-xl text-xs lg:text-sm font-medium text-cream-300 hover:text-white hover:bg-burgundy-800/70 transition">
+                        <i class="fa-solid fa-user-gear mr-1.5 text-xs text-burgundy-500"></i>Admin
+                    </button>
+                </div>
+
+                <!-- USER PROFILE BUTTON -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openAuthModal()" class="px-4 py-2 text-xs sm:text-sm font-bold rounded-xl bg-cream-100 text-burgundy-950 hover:bg-cream-200 transition shadow-md border border-cream-300 flex items-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket text-burgundy-700"></i>
+                        <span id="navAuthLabel">Guest Mode</span>
+                    </button>
+
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-cream-200 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="hidden md:hidden bg-burgundy-950 border-t border-burgundy-800 px-4 pt-3 pb-6 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-house w-6 text-burgundy-500"></i>Home
+            </button>
+            <button onclick="navigateTo('modules'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-book-open w-6 text-burgundy-500"></i>Learning Modules
+            </button>
+            <button onclick="navigateTo('simulator'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-envelope-open-text w-6 text-burgundy-500"></i>Phishing Lab
+            </button>
+            <button onclick="navigateTo('quiz'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-gamepad w-6 text-burgundy-500"></i>Interactive Quizzes
+            </button>
+            <button onclick="navigateTo('tools'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-key w-6 text-burgundy-500"></i>Password Evaluator
+            </button>
+            <button onclick="navigateTo('admin'); toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-cream-100 hover:bg-burgundy-800">
+                <i class="fa-solid fa-user-gear w-6 text-burgundy-500"></i>Admin Panel
+            </button>
+        </div>
+    </nav>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-cream-100 text-burgundy-950 border-l-4 border-burgundy-700 p-4 rounded-r-2xl shadow-2xl flex items-center gap-3 max-w-md">
+        <i class="fa-solid fa-circle-check text-burgundy-700 text-xl" id="toastIcon"></i>
+        <div>
+            <h4 class="font-bold text-sm" id="toastTitle">Notification</h4>
+            <p class="text-xs text-gray-700" id="toastMsg">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT VIEW CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= SECTION: HOME ================= -->
+        <section id="view-home" class="space-y-12">
+            <!-- HERO BANNER -->
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-darkbg-900 border border-burgundy-800 p-8 sm:p-12 md:p-16 shadow-2xl">
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-burgundy-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-2xl space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-burgundy-800/80 border border-burgundy-600/40 text-cream-200 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-graduation-cap text-cream-100"></i> Designed for High School &amp; College Students
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-cream-100 leading-tight">
+                        Empowering Students Against Online Scams &amp; Cyber Threats.
+                    </h1>
+                    <p class="text-cream-300 text-sm sm:text-base leading-relaxed font-light">
+                        Master online threat recognition, build brute-force resistant passphrases, protect personal data privacy, understand Philippine cybercrime laws (RA 10175 &amp; RA 10173), and practice ethical technology usage.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="navigateTo('modules')" class="px-6 py-3.5 rounded-2xl bg-cream-100 text-burgundy-950 font-bold hover:bg-cream-200 transition shadow-lg flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-book-open text-burgundy-700"></i> Explore Educational Modules
+                        </button>
+                        <button onclick="navigateTo('quiz')" class="px-6 py-3.5 rounded-2xl bg-burgundy-800/90 hover:bg-burgundy-700 text-cream-100 font-semibold border border-burgundy-600/60 transition shadow-lg flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-vial text-burgundy-400"></i> Take Certification Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USER PROGRESS SUMMARY CARD -->
+            <div class="glass-panel rounded-2xl p-6 border border-burgundy-700 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-cream-100 text-burgundy-900 flex items-center justify-center text-2xl font-bold shadow">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-cream-100" id="dashUserTitle">Current Profile: Guest Student</h3>
+                        <p class="text-xs text-cream-300 mt-0.5">Your study progress and quiz metrics are stored in your browser session.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 text-center">
+                    <div class="bg-burgundy-950/80 px-5 py-2.5 rounded-xl border border-burgundy-800">
+                        <p class="text-[10px] text-cream-400 uppercase font-bold tracking-wider">Quizzes Taken</p>
+                        <p class="text-xl font-bold font-serif text-cream-100" id="dashQuizCount">0</p>
+                    </div>
+                    <div class="bg-burgundy-950/80 px-5 py-2.5 rounded-xl border border-burgundy-800">
+                        <p class="text-[10px] text-cream-400 uppercase font-bold tracking-wider">Highest Score</p>
+                        <p class="text-xl font-bold font-serif text-cream-100" id="dashBestScore">N/A</p>
+                    </div>
+                    <button onclick="openAuthModal()" class="px-4 py-2.5 bg-cream-100 hover:bg-cream-200 text-burgundy-950 font-bold text-xs rounded-xl transition shadow">
+                        Switch Account
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6 CORE CURRICULUM PILLARS -->
+            <div>
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-cream-100">6 Core Cybersecurity Curriculum Pillars</h2>
+                    <p class="text-cream-400 text-xs sm:text-sm mt-2">Click any card to read full lessons instantly. Everything is pre-loaded.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="homeModulesGrid">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: MODULES ================= -->
+        <section id="view-modules" class="hidden space-y-8">
+            <div class="border-b border-burgundy-800 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-serif font-bold text-cream-100">Cybersecurity Learning Modules</h2>
+                    <p class="text-cream-400 text-xs sm:text-sm mt-1">Detailed educational guides with real-world scenarios and actionable safety takeaways.</p>
+                </div>
+            </div>
+
+            <!-- MODULE SELECTOR TABS -->
+            <div class="flex overflow-x-auto space-x-2 border-b border-burgundy-800 pb-2 custom-scrollbar" id="moduleTabsList">
+                <!-- Tabs generated dynamically -->
+            </div>
+
+            <!-- MODULE CONTENT CONTAINER -->
+            <div id="moduleContentArea" class="bg-cream-card rounded-3xl p-6 sm:p-10 text-darkbg-800 shadow-2xl min-h-[500px]">
+                <!-- Dynamic module content -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION: PHISHING LAB ================= -->
+        <section id="view-simulator" class="hidden space-y-8">
+            <div class="max-w-4xl mx-auto bg-cream-card rounded-3xl p-6 sm:p-10 text-darkbg-800 shadow-2xl border border-cream-300">
+                <div class="border-b border-gray-200 pb-6 mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3 py-1 rounded-full border border-burgundy-200">
+                        Interactive Security Sandbox
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-burgundy-950 mt-2">Phishing Email Inspection Simulator</h2>
+                    <p class="text-xs text-gray-600 mt-1">Examine email headers, urgency flags, and suspicious links, then classify as Legitimate or Phishing Scam.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center text-xs text-gray-600 font-bold">
+                        <span id="simCounter">Scenario 1 of 4</span>
+                        <span id="simScore">Lab Score: 0/0</span>
+                    </div>
+
+                    <!-- EMAIL CONTAINER -->
+                    <div class="bg-white rounded-2xl border-2 border-gray-300 p-6 shadow-inner space-y-4 font-sans">
+                        <div class="border-b pb-4 space-y-2 text-xs">
+                            <div class="flex gap-2">
+                                <span class="font-bold text-gray-500 w-16">FROM:</span>
+                                <span id="simEmailFrom" class="font-mono text-gray-800 bg-gray-100 px-2 py-0.5 rounded">...</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="font-bold text-gray-500 w-16">SUBJECT:</span>
+                                <span id="simEmailSubject" class="font-bold text-gray-900">...</span>
+                            </div>
+                        </div>
+
+                        <div id="simEmailBody" class="text-xs sm:text-sm text-gray-800 leading-relaxed space-y-3 min-h-[120px]">
+                            <!-- Content loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- USER DECISION BUTTONS -->
+                    <div id="simActionButtons" class="grid grid-cols-2 gap-4">
+                        <button onclick="evaluatePhishingChoice(false)" class="py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl transition text-xs sm:text-sm flex justify-center items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-circle-check"></i> Legitimate Email
+                        </button>
+                        <button onclick="evaluatePhishingChoice(true)" class="py-3.5 bg-burgundy-800 hover:bg-burgundy-900 text-white font-bold rounded-xl transition text-xs sm:text-sm flex justify-center items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Phishing Scam!
+                        </button>
+                    </div>
+
+                    <!-- FEEDBACK -->
+                    <div id="simFeedback" class="hidden p-4 rounded-xl text-xs sm:text-sm leading-relaxed space-y-2 border">
+                        <!-- Dynamic feedback -->
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button id="simNextBtn" onclick="nextPhishingScenario()" class="hidden px-6 py-2.5 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold rounded-xl text-xs transition">
+                            Next Scenario <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: QUIZZES ================= -->
+        <section id="view-quiz" class="hidden space-y-8">
+            <div class="max-w-3xl mx-auto bg-cream-card rounded-3xl p-6 sm:p-10 text-darkbg-800 shadow-2xl border border-cream-300">
+                
+                <div class="border-b border-gray-200 pb-6 mb-6 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3 py-1 rounded-full border border-burgundy-200">
+                            Knowledge Assessment
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-burgundy-950 mt-2">Cybersecurity Quiz Engine</h2>
+                    </div>
+                    <div class="bg-burgundy-900 text-cream-100 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-award text-amber-400"></i>
+                        <span>80%+ Score Unlocks Certificate</span>
+                    </div>
+                </div>
+
+                <!-- QUIZ START CARD -->
+                <div id="quizStartCard" class="space-y-6">
+                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                        Select a specific module focus area or take the full 15-question Comprehensive Certification Exam.
+                    </p>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Select Assessment Scope:</label>
+                        <select id="quizCategorySelect" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-burgundy-700 focus:outline-none text-xs sm:text-sm bg-white font-medium">
+                            <option value="all">Comprehensive Certification Quiz (15 Questions)</option>
+                            <option value="1">Module 1: Phishing &amp; Online Scams</option>
+                            <option value="2">Module 2: Password Security &amp; MFA</option>
+                            <option value="3">Module 3: Data Privacy &amp; Social Media</option>
+                            <option value="4">Module 4: Malware &amp; Safe Downloading</option>
+                            <option value="5">Module 5: Laws &amp; Ethics (RA 10175 / RA 10173)</option>
+                            <option value="6">Module 6: Wi-Fi &amp; Network Security</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-cream-200 p-4 rounded-xl text-xs text-gray-800 space-y-2 border border-cream-400">
+                        <p class="font-bold text-burgundy-900"><i class="fa-solid fa-circle-info mr-1.5"></i> Exam Rules:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li>Instant evaluation and rationale explanations for every question.</li>
+                            <li>Your score updates your student record automatically.</li>
+                            <li>Achieving 80% or higher generates an official downloadable/printable CyberSafe Certificate.</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="startQuizEngine()" class="w-full py-4 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold rounded-2xl shadow-lg transition flex justify-center items-center gap-2 text-sm">
+                        <i class="fa-solid fa-play"></i> Start Quiz Assessment
+                    </button>
+                </div>
+
+                <!-- ACTIVE QUIZ CARD -->
+                <div id="quizActiveCard" class="hidden space-y-6">
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-600 mb-2">
+                            <span id="qCounter">Question 1 of 15</span>
+                            <span id="qScore">Score: 0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div id="qProgressBar" class="bg-burgundy-700 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span id="qCategoryBadge" class="text-[10px] font-bold uppercase tracking-wider bg-burgundy-800 text-cream-100 px-2.5 py-0.5 rounded-md">Topic</span>
+                        <h3 id="qQuestionText" class="text-base sm:text-lg font-bold text-burgundy-950 leading-snug">
+                            Question text loading...
+                        </h3>
+                    </div>
+
+                    <div id="qOptionsGrid" class="space-y-3">
+                        <!-- Dynamic options -->
+                    </div>
+
+                    <div id="qFeedbackBox" class="hidden p-4 rounded-xl text-xs font-medium space-y-1">
+                        <!-- Feedback -->
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button id="qNextBtn" onclick="nextQuizQuestion()" disabled class="px-6 py-3 bg-burgundy-800 text-cream-100 font-bold rounded-xl hover:bg-burgundy-700 transition disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm">
+                            Next Question <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QUIZ RESULT CARD -->
+                <div id="quizResultCard" class="hidden text-center space-y-6 py-4">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-burgundy-100 text-burgundy-800 flex items-center justify-center text-4xl font-bold shadow-inner border border-burgundy-300">
+                        <i class="fa-solid fa-award" id="resIcon"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold font-serif text-burgundy-950" id="resTitle">Quiz Finished!</h3>
+                        <p class="text-xs text-gray-600 mt-1" id="resSubtitle">Summary of your cybersecurity competency score.</p>
+                    </div>
+
+                    <div class="bg-cream-200 p-6 rounded-2xl border border-cream-400 max-w-sm mx-auto">
+                        <div class="text-4xl font-extrabold text-burgundy-900 font-serif" id="resScore">0 / 15</div>
+                        <p class="text-xs font-semibold text-gray-700 uppercase tracking-widest mt-1" id="resPercent">0% Accuracy</p>
+                        <p class="text-xs text-gray-700 mt-3 font-medium" id="resFeedback">Summary feedback.</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-4 pt-2">
+                        <button onclick="startQuizEngine()" class="px-6 py-3 bg-burgundy-800 text-cream-100 font-bold rounded-xl hover:bg-burgundy-700 transition text-xs sm:text-sm">
+                            <i class="fa-solid fa-rotate-right mr-1.5"></i> Retake Quiz
+                        </button>
+                        <button id="certBtn" onclick="generateCertificate()" class="hidden px-6 py-3 bg-emerald-700 text-white font-bold rounded-xl hover:bg-emerald-800 transition text-xs sm:text-sm shadow-md">
+                            <i class="fa-solid fa-certificate mr-1.5"></i> View &amp; Print Official Certificate
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION: PASSWORD TOOLS ================= -->
+        <section id="view-tools" class="hidden space-y-8">
+            <div class="max-w-3xl mx-auto bg-cream-card rounded-3xl p-6 sm:p-10 text-darkbg-800 shadow-2xl border border-cream-300">
+                <div class="border-b border-gray-200 pb-6 mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3 py-1 rounded-full border border-burgundy-200">
+                        Interactive Security Utility
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-burgundy-950 mt-2">Password Strength &amp; Entropy Evaluator</h2>
+                    <p class="text-xs text-gray-600 mt-1">Test sample passwords safely. Inputs are evaluated strictly inside your browser memory.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Test Password Input:</label>
+                        <div class="relative">
+                            <input type="password" id="toolPassInput" oninput="analyzeToolPassword()" placeholder="Type sample password or passphrase..." 
+                                class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-300 focus:border-burgundy-700 focus:outline-none pr-12 font-mono text-sm bg-white">
+                            <button onclick="toggleToolPassVisibility()" type="button" class="absolute right-4 top-3.5 text-gray-500 hover:text-burgundy-800">
+                                <i class="fa-solid fa-eye" id="toolPassVisIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold">
+                            <span class="text-gray-700">Calculated Strength:</span>
+                            <span id="toolStrengthLabel" class="text-burgundy-800 uppercase font-bold">Waiting for input</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                            <div id="toolStrengthBar" class="h-3 rounded-full transition-all duration-300 w-0 bg-red-500"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                        <div id="chkLen" class="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-500 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-xmark text-red-500" id="chkLenIcon"></i>
+                            <span>12+ Chars</span>
+                        </div>
+                        <div id="chkUpper" class="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-500 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-xmark text-red-500" id="chkUpperIcon"></i>
+                            <span>Uppercase</span>
+                        </div>
+                        <div id="chkNum" class="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-500 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-xmark text-red-500" id="chkNumIcon"></i>
+                            <span>Numbers</span>
+                        </div>
+                        <div id="chkSpec" class="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-500 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-xmark text-red-500" id="chkSpecIcon"></i>
+                            <span>Symbols</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-burgundy-50 p-4 rounded-xl border border-burgundy-200 text-xs text-burgundy-950 space-y-1">
+                        <p class="font-bold"><i class="fa-solid fa-lightbulb mr-1 text-amber-600"></i> Best Practice Tip:</p>
+                        <p>Instead of short complex strings like <code class="bg-white px-1 py-0.5 rounded font-mono">P@ss1</code>, create 4-word passphrases such as <code class="bg-white px-1 py-0.5 rounded font-mono">Blue#Tiger$Coffee2026</code>. They are far more resistant to dictionary cracking tools and much easier to remember!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: ADMIN PANEL ================= -->
+        <section id="view-admin" class="hidden space-y-8">
+            <div class="bg-cream-card rounded-3xl p-6 sm:p-10 text-darkbg-800 shadow-2xl border border-cream-300">
+                <div class="border-b border-gray-200 pb-6 mb-6 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3 py-1 rounded-full border border-burgundy-200">
+                            Instructor &amp; Content Management
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-burgundy-950 mt-2">CyberSafe Admin Panel</h2>
+                    </div>
+                    <div id="adminLockState" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                        <i class="fa-solid fa-lock mr-1"></i> Admin Authentication Required
+                    </div>
+                </div>
+
+                <!-- ADMIN LOCK PROMPT -->
+                <div id="adminAuthLockArea" class="space-y-4 max-w-md mx-auto py-8 text-center">
+                    <div class="w-16 h-16 rounded-full bg-burgundy-100 text-burgundy-800 flex items-center justify-center text-2xl mx-auto">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-burgundy-900">Sign in as Administrator</h3>
+                    <p class="text-xs text-gray-600">Default Admin Credentials: Username: <code class="bg-gray-100 px-1.5 py-0.5 rounded font-bold">admin</code> / Password: <code class="bg-gray-100 px-1.5 py-0.5 rounded font-bold">admin123</code></p>
+                    <button onclick="openAuthModal('admin')" class="px-6 py-3 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold text-xs rounded-xl transition shadow-md">
+                        Open Admin Login Prompt
+                    </button>
+                </div>
+
+                <!-- ADMIN CONTENT (UNLOCKED) -->
+                <div id="adminDashboardArea" class="hidden space-y-8">
+                    <!-- ANALYTICS CARDS -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 text-center">
+                            <p class="text-xs text-gray-600 font-semibold uppercase">Total Learning Modules</p>
+                            <p class="text-3xl font-bold font-serif text-burgundy-900 mt-1" id="adminModCount">6</p>
+                            <p class="text-[11px] text-gray-500 mt-1">Pre-loaded Curriculum</p>
+                        </div>
+                        <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 text-center">
+                            <p class="text-xs text-gray-600 font-semibold uppercase">Total Quiz Attempts</p>
+                            <p class="text-3xl font-bold font-serif text-burgundy-900 mt-1" id="adminTotalQuizCount">0</p>
+                            <p class="text-[11px] text-gray-500 mt-1">Logged Student Sessions</p>
+                        </div>
+                        <div class="bg-cream-100 p-5 rounded-2xl border border-cream-300 text-center">
+                            <p class="text-xs text-gray-600 font-semibold uppercase">Certification Rate</p>
+                            <p class="text-3xl font-bold font-serif text-burgundy-900 mt-1" id="adminPassRate">0%</p>
+                            <p class="text-[11px] text-gray-500 mt-1">Scores $\ge$ 80%</p>
+                        </div>
+                    </div>
+
+                    <!-- ADD/EDIT CONTENT MODULE EDITOR -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-4">
+                        <h3 class="text-base font-bold text-burgundy-950 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-to-square text-burgundy-700"></i> Add / Update Educational Module
+                        </h3>
+                        <form onsubmit="handleAdminSaveModule(event)" class="space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Module ID Key</label>
+                                    <input type="text" id="adminModKey" required placeholder="e.g. mod-7" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs bg-gray-50">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">FontAwesome Icon Class</label>
+                                    <input type="text" id="adminModIcon" required placeholder="fa-shield-halved" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs bg-gray-50">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Module Title</label>
+                                <input type="text" id="adminModTitle" required placeholder="Module Title" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Module Summary</label>
+                                <input type="text" id="adminModSummary" required placeholder="Brief description..." class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Lesson Content Details</label>
+                                <textarea id="adminModContent" rows="3" required placeholder="Enter full educational text here..." class="w-full px-3 py-2 rounded-xl border border-gray-300 text-xs bg-gray-50"></textarea>
+                            </div>
+                            <button type="submit" class="px-5 py-2.5 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold rounded-xl text-xs transition">
+                                <i class="fa-solid fa-plus mr-1"></i> Save Educational Module
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- STUDENT AUDIT LOG -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-bold text-burgundy-950">Student Activity &amp; Quiz Results Log</h3>
+                            <button onclick="clearLocalProgress()" class="px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs font-bold transition">
+                                <i class="fa-solid fa-trash mr-1"></i> Reset All Logs
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-xl border border-gray-200">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-burgundy-900 text-cream-100 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-3">Student / User</th>
+                                        <th class="p-3">Role</th>
+                                        <th class="p-3">Date</th>
+                                        <th class="p-3">Score</th>
+                                        <th class="p-3">Certification</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white" id="adminStudentTable">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkbg-950 border-t border-burgundy-900 text-cream-300 text-xs py-8 px-4 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <span class="font-bold font-serif text-cream-100 text-sm">CyberSafe Educational Website</span>
+                <p class="text-gray-400 text-[11px] mt-0.5">BSIT Academic Project | Cybersecurity Awareness, Data Privacy &amp; Ethics</p>
+            </div>
+            <div class="text-gray-400 text-[11px]">
+                Color Theme: Burgundy, Cream &amp; Dark Charcoal | All Information Pre-Populated
+            </div>
+        </div>
+    </footer>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div id="authModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-cream-card w-full max-w-md rounded-3xl p-6 sm:p-8 text-darkbg-800 shadow-2xl border border-cream-300 relative space-y-6">
+            <button onclick="closeAuthModal()" class="absolute right-5 top-5 text-gray-500 hover:text-burgundy-900 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-2xl bg-burgundy-800 text-cream-100 flex items-center justify-center text-xl mx-auto mb-3">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="text-xl font-bold font-serif text-burgundy-950">CyberSafe User Access</h3>
+                <p class="text-xs text-gray-600 mt-1">Select access mode or log into your student profile.</p>
+            </div>
+
+            <!-- TABS -->
+            <div class="grid grid-cols-3 gap-1 bg-cream-200 p-1 rounded-xl text-xs font-bold">
+                <button onclick="switchAuthMode('guest')" id="authTabGuest" class="py-2 rounded-lg bg-burgundy-800 text-cream-100">Guest</button>
+                <button onclick="switchAuthMode('student')" id="authTabStudent" class="py-2 rounded-lg text-gray-700 hover:text-burgundy-900">Student</button>
+                <button onclick="switchAuthMode('admin')" id="authTabAdmin" class="py-2 rounded-lg text-gray-700 hover:text-burgundy-900">Admin</button>
+            </div>
+
+            <!-- GUEST FORM -->
+            <div id="authFormGuest" class="space-y-4">
+                <p class="text-xs text-gray-600 leading-relaxed">
+                    Guest mode enables instant access without account registration. Your study metrics will be stored locally in your browser.
+                </p>
+                <button onclick="loginAsGuest()" class="w-full py-3 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold text-xs rounded-xl transition shadow-md">
+                    Continue as Guest Student
+                </button>
+            </div>
+
+            <!-- STUDENT FORM -->
+            <form id="authFormStudent" onsubmit="handleStudentLogin(event)" class="hidden space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Full Student Name</label>
+                    <input type="text" id="studentNameInput" required placeholder="e.g. Maria Santos" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-burgundy-700 focus:outline-none text-xs bg-white">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Student ID or Email</label>
+                    <input type="text" id="studentIdInput" required placeholder="e.g. 2026-09823" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-burgundy-700 focus:outline-none text-xs bg-white">
+                </div>
+                <button type="submit" class="w-full py-3 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold text-xs rounded-xl transition shadow-md">
+                    Register / Login Student Profile
+                </button>
+            </form>
+
+            <!-- ADMIN FORM -->
+            <form id="authFormAdmin" onsubmit="handleAdminLogin(event)" class="hidden space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Admin Username</label>
+                    <input type="text" id="adminUserInput" required placeholder="admin" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-burgundy-700 focus:outline-none text-xs bg-white">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Admin Password</label>
+                    <input type="password" id="adminPassInput" required placeholder="admin123" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-burgundy-700 focus:outline-none text-xs bg-white">
+                </div>
+                <button type="submit" class="w-full py-3 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold text-xs rounded-xl transition shadow-md">
+                    Authenticate Admin Access
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CERTIFICATE MODAL -->
+    <div id="certificateModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="max-w-3xl w-full bg-white text-gray-900 rounded-3xl p-8 border-8 border-burgundy-800 shadow-2xl relative" id="printableCertificate">
+            <button onclick="closeCertificate()" class="absolute right-4 top-4 text-gray-500 hover:text-burgundy-900 text-xl print:hidden">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-6 py-6 border-4 border-double border-burgundy-900 p-8">
+                <div class="flex justify-center items-center gap-3">
+                    <i class="fa-solid fa-shield-halved text-4xl text-burgundy-800"></i>
+                    <span class="text-3xl font-serif font-bold text-burgundy-900">CyberSafe Academic Portal</span>
+                </div>
+                <p class="text-xs uppercase tracking-widest font-bold text-gray-500">Official Certificate of Achievement</p>
+                
+                <p class="text-xs text-gray-600">This certifies that student</p>
+                <h2 class="text-3xl font-serif font-bold text-burgundy-900 underline" id="certStudentName">Student Name</h2>
+                <p class="text-xs text-gray-600 max-w-lg mx-auto">
+                    has successfully completed the comprehensive <span class="font-bold text-burgundy-900">Cybersecurity Awareness, Data Privacy &amp; Ethics Certification</span> with distinction.
+                </p>
+
+                <div class="pt-6 flex justify-around items-end text-xs text-gray-700">
+                    <div>
+                        <p class="font-bold font-mono text-burgundy-900 text-sm" id="certScore">100% Score</p>
+                        <p class="border-t border-gray-400 mt-1 pt-1 text-[10px] uppercase">Grade Achieved</p>
+                    </div>
+                    <div>
+                        <p class="font-bold" id="certDate">Date</p>
+                        <p class="border-t border-gray-400 mt-1 pt-1 text-[10px] uppercase">Date Issued</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-burgundy-900">CyberSafe BSIT Admin</p>
+                        <p class="border-t border-gray-400 mt-1 pt-1 text-[10px] uppercase">Authorized Verification</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-center gap-4 print:hidden">
+                <button onclick="window.print()" class="px-6 py-2.5 bg-burgundy-800 text-cream-100 font-bold rounded-xl text-xs hover:bg-burgundy-700 transition">
+                    <i class="fa-solid fa-print mr-1.5"></i> Print Certificate
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION LOGIC JS -->
+    <script>
+        /* ==================== STATE MANAGEMENT ==================== */
+        const APP_STATE = {
+            currentUser: { name: 'Guest Student', id: 'GUEST', role: 'guest' },
+            quizAttempts: [],
+            activeQuizIndex: 0,
+            activeQuizScore: 0,
+            activeQuizQuestions: [],
+            phishingIndex: 0,
+            phishingScore: 0
+        };
+
+        /* ==================== PRE-POPULATED EDUCATIONAL CONTENT ==================== */
+        const CURRICULUM_DATA = {
+            'mod-1': {
+                title: 'Phishing & Online Scams',
+                icon: 'fa-fish-fins',
+                summary: 'Deceptive social engineering tricks designed to harvest student passwords and personal credentials.',
+                sections: [
+                    {
+                        heading: '1. Fundamentals of Phishing Attacks',
+                        content: 'Phishing involves cybercriminals posing as trusted institutions (such as university helpdesks, bank portals, or social media networks) to dupe users into revealing sensitive data. Attackers rely heavily on urgent language, fear tactics, or fake prize promises.'
+                    },
+                    {
+                        heading: '2. Email Spoofing & Smishing Techniques',
+                        content: '• <strong>Email Spoofing:</strong> Mismatched email domains (e.g., <code>support@university-portal-login.com</code> instead of official <code>.edu.ph</code> domain).<br>• <strong>Smishing:</strong> Fraudulent text messages containing deceptive short links claiming a package delivery or prize bonus.<br>• <strong>Spear Phishing:</strong> Highly targeted scams directed specifically at students using public info harvested from social media.'
+                    },
+                    {
+                        heading: '3. Real-World Scenario',
+                        content: 'You receive an urgent message: <em>"Your student portal password expires in 2 hours! Verify immediately at www.school-login-update.com or face account suspension."</em> <strong>Action:</strong> Never click the link! Always visit your official school bookmark directly.'
+                    },
+                    {
+                        heading: '4. Essential Student Safety Checklist',
+                        content: '✓ Always inspect sender domain addresses carefully.<br>✓ Hover over hyperlinks before clicking to view the true target destination.<br>✓ Never disclose OTPs or passwords over email or phone.'
+                    }
+                ]
+            },
+            'mod-2': {
+                title: 'Password Security & MFA',
+                icon: 'fa-key',
+                summary: 'Constructing brute-force resistant passphrases and enforcing multi-factor authentication.',
+                sections: [
+                    {
+                        heading: '1. Understanding Password Entropy & Cracking',
+                        content: 'Password entropy measures randomness. Simple passwords like <code>123456</code> or <code>password123</code> take automated brute-force tools under 1 millisecond to breach. Reusing passwords exposes every linked account if a single site suffers a data leak.'
+                    },
+                    {
+                        heading: '2. Creating Strong 4-Word Passphrases',
+                        content: 'Instead of short hard-to-remember passwords with forced symbols like <code>P@ss1</code>, construct 4 random dictionary words combined with numbers and symbols (e.g., <code>Guitar#Sunset$Falcon2026</code>). This produces high mathematical entropy while remaining easy to remember.'
+                    },
+                    {
+                        heading: '3. Multi-Factor Authentication (MFA)',
+                        content: 'MFA adds an vital layer of defense by requiring two independent verification factors: something you know (password) + something you have (authenticator app OTP). App-based authenticators (like Google Authenticator or Authy) are far safer than SMS OTPs, which are vulnerable to SIM-swapping.'
+                    }
+                ]
+            },
+            'mod-3': {
+                title: 'Data Privacy & Social Media Exposure',
+                icon: 'fa-user-shield',
+                summary: 'Managing digital footprints, oversharing risks, and protecting Personally Identifiable Information (PII).',
+                sections: [
+                    {
+                        heading: '1. Protecting Personally Identifiable Information (PII)',
+                        content: 'PII includes full names, birthdates, home addresses, contact numbers, and student ID numbers. Disclosing PII on public social media allows identity thieves to answer account security questions or fabricate fake profiles.'
+                    },
+                    {
+                        heading: '2. The Danger of Oversharing & Geo-Tagging',
+                        content: 'Posting photos displaying boarding passes, student ID badges, or real-time location tags exposes sensitive barcode data and daily movement habits. Data brokers actively scrape public profiles to compile marketing dossiers.'
+                    },
+                    {
+                        heading: '3. Actionable Privacy Recommendations',
+                        content: '✓ Set social media profiles to Private.<br>✓ Disable real-time location sharing for non-essential apps.<br>✓ Conduct quarterly audits of connected third-party app permissions.'
+                    }
+                ]
+            },
+            'mod-4': {
+                title: 'Malware, Ransomware & Safe Downloading',
+                icon: 'fa-bug',
+                summary: 'Recognizing malicious software, ransomware extortion, and safe downloading practices.',
+                sections: [
+                    {
+                        heading: '1. Common Malware Categories',
+                        content: '• <strong>Ransomware:</strong> Encrypts user files and demands ransom payments for decryption keys.<br>• <strong>Trojan Horses:</strong> Disguised as legitimate software (e.g., cracked games, software keygens).<br>• <strong>Keyloggers:</strong> Silently log keystrokes to steal login passwords and credit card numbers.'
+                    },
+                    {
+                        heading: '2. Safe Download Practices',
+                        content: 'Avoid downloading pirated software, cracked apps, or torrents from unverified third-party hosts. Keep OS security patches updated to eliminate software vulnerabilities.'
+                    }
+                ]
+            },
+            'mod-5': {
+                title: 'Cyber Law & Ethics (RA 10175 & RA 10173)',
+                icon: 'fa-scale-balanced',
+                summary: 'Philippine legal boundaries, data privacy regulations, and ethical IT conduct.',
+                sections: [
+                    {
+                        heading: '1. Cybercrime Prevention Act of 2012 (RA 10175)',
+                        content: 'RA 10175 penalizes illegal access, data interference, identity theft, cybersex, online libel, and system disruption in the Philippines.'
+                    },
+                    {
+                        heading: '2. Data Privacy Act of 2012 (RA 10173)',
+                        content: 'RA 10173 mandates that organizations protect personal student data and grants individuals rights to control how their personal information is processed.'
+                    },
+                    {
+                        heading: '3. Hacker Classifications & Professional Ethics',
+                        content: '• <strong>White Hat:</strong> Ethical security experts working legally with permission.<br>• <strong>Black Hat:</strong> Malicious hackers breaching systems for personal gain.<br>• <strong>Grey Hat:</strong> Researchers who test systems without authorization but report flaws without malicious intent.'
+                    }
+                ]
+            },
+            'mod-6': {
+                title: 'Wi-Fi & Network Security',
+                icon: 'fa-wifi',
+                summary: 'Defending against Man-In-The-Middle (MITM) attacks on public Wi-Fi networks.',
+                sections: [
+                    {
+                        heading: '1. The Dangers of Open Public Wi-Fi',
+                        content: 'Public Wi-Fi networks in coffee shops or malls often lack traffic encryption. Attackers on the same network can inspect unencrypted HTTP traffic (packet sniffing).'
+                    },
+                    {
+                        heading: '2. HTTPS & SSL/TLS Verification',
+                        content: 'Always ensure websites display <code>https://</code> with a padlock icon before entering login credentials or financial information.'
+                    },
+                    {
+                        heading: '3. Virtual Private Networks (VPNs)',
+                        content: 'A VPN creates an encrypted tunnel for all web traffic, protecting your browsing session even when connected to untrusted public Wi-Fi.'
+                    }
+                ]
+            }
+        };
+
+        /* ==================== PHISHING SIMULATOR DATA ==================== */
+        const PHISHING_SCENARIOS = [
+            {
+                from: "support@university-portal-login.com",
+                subject: "URGENT: Student Account Expiration Warning",
+                body: "Dear Student,<br><br>Your university portal credentials will expire in 12 hours due to database maintenance. Please verify your account immediately by clicking below:<br><br><a href='#' class='text-blue-600 underline font-bold'>http://university-portal-login.com/verify</a><br><br>University IT Support",
+                isPhishing: true,
+                explanation: "PHISHING SCAM: Sent from an unverified third-party domain ('university-portal-login.com' instead of official '.edu.ph') and uses panic tactics."
+            },
+            {
+                from: "noreply@github.com",
+                subject: "[GitHub] Security Notice: New device sign-in detected",
+                body: "Hello,<br><br>A new sign-in to your GitHub account was detected from Chrome on Windows. If this was you, no action is required. If not, please review your security settings.<br><br>GitHub Security Team",
+                isPhishing: false,
+                explanation: "LEGITIMATE EMAIL: Official github.com sender domain with non-coercive security advisory."
+            },
+            {
+                from: "billing@paypaI-updates.net",
+                subject: "Receipt: $499.00 payment to CryptoExchange Inc.",
+                body: "Thank you for your transaction! $499.00 has been debited. If you did not authorize this payment, call our customer support helpline immediately at 1-800-555-0199.",
+                isPhishing: true,
+                explanation: "PHISHING SCAM: Deceptive domain ('paypaI-updates.net' with a capital 'I') attempting to lure victims into calling a fake refund phone scam."
+            },
+            {
+                from: "library@college.edu.ph",
+                subject: "Library Book Overdue Reminder",
+                body: "Hi Student,<br><br>This is a automated reminder that your borrowed textbook 'Data Structures and Algorithms' is due this Friday. You may renew online via your student portal.<br><br>College Library Staff",
+                isPhishing: false,
+                explanation: "LEGITIMATE EMAIL: Sent directly from the official college institutional address with no suspicious link requests."
+            }
+        ];
+
+        /* ==================== QUIZ QUESTION BANK ==================== */
+        const QUESTION_BANK = [
+            {
+                mod: "1",
+                category: "Phishing & Online Scams",
+                question: "Which of the following is the clearest indicator of a phishing email?",
+                options: [
+                    "Email domain matching the official university website",
+                    "Urgent threats to disable your account unless you click an unverified link immediately",
+                    "Clear customer service contact numbers",
+                    "Standard routine updates sent well in advance"
+                ],
+                answer: 1,
+                explanation: "Creating artificial urgency to panic victims into clicking malicious links is a primary phishing tactic."
+            },
+            {
+                mod: "1",
+                category: "Phishing & Online Scams",
+                question: "What does the term 'Smishing' refer to?",
+                options: [
+                    "Phishing attacks executed via SMS text messages",
+                    "Social media hacking using video calls",
+                    "Email malware attachments",
+                    "Physical theft of laptop computers"
+                ],
+                answer: 0,
+                explanation: "Smishing stands for SMS Phishing."
+            },
+            {
+                mod: "2",
+                category: "Password Security",
+                question: "Which passphrase structure offers the highest entropy against automated cracking software?",
+                options: [
+                    "Password123",
+                    "admin2026",
+                    "Coffee#Falcon$Sunset2026",
+                    "qwertyuiop"
+                ],
+                answer: 2,
+                explanation: "Combining multiple random words with numbers and symbols produces high mathematical entropy."
+            },
+            {
+                mod: "2",
+                category: "Password Security",
+                question: "Multi-Factor Authentication (MFA) protects accounts primarily because:",
+                options: [
+                    "It requires changing your password every 3 days",
+                    "It requires two independent factors (e.g. Password + Authenticator OTP)",
+                    "It automatically encrypts your local hard drive",
+                    "It speeds up internet connection speeds"
+                ],
+                answer: 1,
+                explanation: "MFA requires an additional factor (like an authenticator app OTP), blocking attackers even if they steal your password."
+            },
+            {
+                mod: "3",
+                category: "Data Privacy",
+                question: "Which item is classified as Personally Identifiable Information (PII)?",
+                options: [
+                    "Public weather reports",
+                    "Full name, home address, and Student ID number",
+                    "Computer monitor resolution settings",
+                    "Current day of the week"
+                ],
+                answer: 1,
+                explanation: "PII encompasses any information capable of directly pinpointing an individual's identity."
+            },
+            {
+                mod: "3",
+                category: "Data Privacy",
+                question: "Why is posting real-time location tags and boarding passes on social media risky?",
+                options: [
+                    "It reduces photo image quality",
+                    "It exposes barcode data and alerts bad actors to your physical location",
+                    "It violates social media copyright terms",
+                    "It uses up cloud storage space"
+                ],
+                answer: 1,
+                explanation: "Boarding passes contain readable passenger barcodes, and real-time tags reveal your empty home."
+            },
+            {
+                mod: "4",
+                category: "Malware Threats",
+                question: "Which category of malware locks victim files and demands extortion payments for decryption?",
+                options: [
+                    "Spyware",
+                    "Adware",
+                    "Ransomware",
+                    "Keylogger"
+                ],
+                answer: 2,
+                explanation: "Ransomware encrypts target data and demands financial ransom payments."
+            },
+            {
+                mod: "4",
+                category: "Malware Threats",
+                question: "A Trojan Horse malware spreads primarily by:",
+                options: [
+                    "Masquerading as legitimate software or game utility",
+                    "Replicating across Wi-Fi routers without human interaction",
+                    "Modifying physical monitor hardware",
+                    "Sending physical letters to homes"
+                ],
+                answer: 0,
+                explanation: "Trojans trick users into running them by pretending to be useful programs."
+            },
+            {
+                mod: "5",
+                category: "Cyber Laws & Ethics",
+                question: "Which law is known as the Philippine Cybercrime Prevention Act of 2012?",
+                options: [
+                    "RA 9003",
+                    "RA 10175",
+                    "RA 7610",
+                    "RA 10533"
+                ],
+                answer: 1,
+                explanation: "RA 10175 is the Cybercrime Prevention Act of 2012 in the Philippines."
+            },
+            {
+                mod: "5",
+                category: "Cyber Laws & Ethics",
+                question: "What defines an ethical 'White Hat' hacker?",
+                options: [
+                    "A hacker operating legally with authorization to discover and fix vulnerabilities",
+                    "A hacker using Linux exclusively",
+                    "An unauthorized hacker stealing money for charity",
+                    "There is no difference"
+                ],
+                answer: 0,
+                explanation: "White hat hackers conduct authorized security assessments to enhance system defenses."
+            },
+            {
+                mod: "6",
+                category: "Wi-Fi & Network Security",
+                question: "Why is entering passwords on unencrypted public Wi-Fi hazardous?",
+                options: [
+                    "It uses more battery power",
+                    "Attackers on the same network can inspect unencrypted data packets (sniffing)",
+                    "It automatically deletes saved web bookmarks",
+                    "It lowers screen brightness"
+                ],
+                answer: 1,
+                explanation: "Open Wi-Fi traffic lacks encryption, leaving credentials open to packet sniffing."
+            },
+            {
+                mod: "6",
+                category: "Wi-Fi & Network Security",
+                question: "What does HTTPS stand for?",
+                options: [
+                    "Hypertext Transfer Protocol Secure",
+                    "High Technology Technical System",
+                    "Home Transfer Protocol Server",
+                    "Hypertext Terminal Path Signal"
+                ],
+                answer: 0,
+                explanation: "HTTPS encrypts web traffic using SSL/TLS encryption."
+            },
+            {
+                mod: "1",
+                category: "Phishing & Online Scams",
+                question: "If you receive an email claiming you won a prize for a contest you never entered, you should:",
+                options: [
+                    "Click the link and fill out bank credentials",
+                    "Mark the email as spam and delete it",
+                    "Send them your home address",
+                    "Forward it to all contacts"
+                ],
+                answer: 1,
+                explanation: "Unsolicited prize claims are classic credential harvesting traps."
+            },
+            {
+                mod: "2",
+                category: "Password Security",
+                question: "What risk arises from using the same password across multiple online accounts?",
+                options: [
+                    "Credential stuffing: A leak on one website compromises all linked accounts",
+                    "It slows down typing speed",
+                    "It violates international copyright laws",
+                    "It causes monitor screen flickering"
+                ],
+                answer: 0,
+                explanation: "Recycling passwords enables attackers to access all your accounts if one site suffers a breach."
+            },
+            {
+                mod: "3",
+                category: "Data Privacy",
+                question: "Which legislation protects personal data privacy rights in the Philippines?",
+                options: [
+                    "Data Privacy Act of 2012 (RA 10173)",
+                    "Clean Air Act",
+                    "Consumer Code Act",
+                    "E-Commerce Act"
+                ],
+                answer: 0,
+                explanation: "RA 10173 governs personal data privacy protection in the Philippines."
+            }
+        ];
+
+        /* ==================== CORE NAVIGATION ==================== */
+        function navigateTo(viewId) {
+            const views = ['home', 'modules', 'simulator', 'quiz', 'tools', 'admin'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast(title, msg, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMsg').innerText = msg;
+            
+            const icon = document.getElementById('toastIcon');
+            icon.className = isSuccess ? 'fa-solid fa-circle-check text-burgundy-700 text-xl' : 'fa-solid fa-circle-exclamation text-red-600 text-xl';
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        /* ==================== AUTHENTICATION & PROFILES ==================== */
+        function openAuthModal(mode = 'guest') {
+            document.getElementById('authModal').classList.remove('hidden');
+            switchAuthMode(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function switchAuthMode(mode) {
+            ['Guest', 'Student', 'Admin'].forEach(m => {
+                const btn = document.getElementById(`authTab${m}`);
+                const form = document.getElementById(`authForm${m}`);
+                if (m.toLowerCase() === mode) {
+                    btn.className = "py-2 rounded-lg bg-burgundy-800 text-cream-100 font-bold shadow";
+                    form.classList.remove('hidden');
+                } else {
+                    btn.className = "py-2 rounded-lg text-gray-700 hover:text-burgundy-900 font-bold";
+                    form.classList.add('hidden');
+                }
+            });
+        }
+
+        function loginAsGuest() {
+            APP_STATE.currentUser = { name: 'Guest Student', id: 'GUEST', role: 'guest' };
+            saveUserSession();
+            updateUserUI();
+            closeAuthModal();
+            showToast('Guest Session Active', 'Logged in as Guest Student.');
+        }
+
+        function handleStudentLogin(e) {
+            e.preventDefault();
+            const name = document.getElementById('studentNameInput').value.trim();
+            const id = document.getElementById('studentIdInput').value.trim();
+
+            if (!name || !id) return;
+
+            APP_STATE.currentUser = { name, id, role: 'student' };
+            saveUserSession();
+            updateUserUI();
+            closeAuthModal();
+            showToast('Student Profile Ready', `Welcome back, ${name}!`);
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('adminUserInput').value.trim();
+            const p = document.getElementById('adminPassInput').value.trim();
+
+            if (u === 'admin' && p === 'admin123') {
+                APP_STATE.currentUser = { name: 'System Administrator', id: 'ADMIN-01', role: 'admin' };
+                saveUserSession();
+                updateUserUI();
+                closeAuthModal();
+                showToast('Admin Access Granted', 'Administrative controls unlocked.');
+                navigateTo('admin');
+            } else {
+                showToast('Login Failed', 'Invalid admin credentials.', false);
+            }
+        }
+
+        function saveUserSession() {
+            try {
+                localStorage.setItem('cybersafe_user', JSON.stringify(APP_STATE.currentUser));
+            } catch(e){}
+        }
+
+        function loadUserSession() {
+            try {
+                const saved = localStorage.getItem('cybersafe_user');
+                if (saved) {
+                    APP_STATE.currentUser = JSON.parse(saved);
+                }
+                const logs = localStorage.getItem('cybersafe_logs');
+                if (logs) {
+                    APP_STATE.quizAttempts = JSON.parse(logs);
+                }
+            } catch(e){}
+        }
+
+        function updateUserUI() {
+            const user = APP_STATE.currentUser;
+            document.getElementById('navAuthLabel').innerText = user.role === 'admin' ? 'Admin Active' : user.name;
+            document.getElementById('topUserDisplay').innerText = `${user.name} (${user.role.toUpperCase()})`;
+            document.getElementById('dashUserTitle').innerText = `Current Profile: ${user.name}`;
+
+            const lockArea = document.getElementById('adminAuthLockArea');
+            const dashArea = document.getElementById('adminDashboardArea');
+            const lockState = document.getElementById('adminLockState');
+
+            if (user.role === 'admin') {
+                if (lockArea) lockArea.classList.add('hidden');
+                if (dashArea) dashArea.classList.remove('hidden');
+                if (lockState) {
+                    lockState.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                    lockState.innerHTML = '<i class="fa-solid fa-unlock mr-1"></i> Admin Authenticated';
+                }
+            } else {
+                if (lockArea) lockArea.classList.remove('hidden');
+                if (dashArea) dashArea.classList.add('hidden');
+                if (lockState) {
+                    lockState.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+                    lockState.innerHTML = '<i class="fa-solid fa-lock mr-1"></i> Admin Authentication Required';
+                }
+            }
+
+            refreshAdminTable();
+        }
+
+        /* ==================== MODULES RENDERER ==================== */
+        function renderHomeModulesGrid() {
+            const grid = document.getElementById('homeModulesGrid');
+            if (!grid) return;
+
+            grid.innerHTML = Object.keys(CURRICULUM_DATA).map(key => {
+                const item = CURRICULUM_DATA[key];
+                return `
+                    <div class="bg-cream-card rounded-2xl p-6 shadow-xl border border-cream-300 flex flex-col justify-between hover:-translate-y-1 transition duration-200">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-burgundy-800 text-cream-100 flex items-center justify-center text-xl font-bold mb-4">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-burgundy-950 mb-2">${item.title}</h3>
+                            <p class="text-gray-700 text-xs leading-relaxed">${item.summary}</p>
+                        </div>
+                        <button onclick="openModuleTab('${key}')" class="mt-6 text-xs font-bold text-burgundy-700 hover:text-burgundy-950 flex items-center gap-1">
+                            Read Full Module <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderModuleTabs() {
+            const list = document.getElementById('moduleTabsList');
+            if (!list) return;
+
+            list.innerHTML = Object.keys(CURRICULUM_DATA).map((key, idx) => {
+                const item = CURRICULUM_DATA[key];
+                const active = idx === 0;
+                return `
+                    <button onclick="switchModuleTab('${key}')" id="tab-${key}" class="mod-tab-btn whitespace-nowrap px-4 py-3 rounded-t-xl text-xs sm:text-sm font-semibold ${active ? 'bg-cream-100 text-burgundy-950 font-bold border-t border-x border-cream-300 shadow' : 'text-cream-300 hover:text-white hover:bg-burgundy-800/60 transition'}">
+                        <i class="fa-solid ${item.icon} mr-2"></i>${item.title}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function switchModuleTab(modKey) {
+            document.querySelectorAll('.mod-tab-btn').forEach(btn => {
+                btn.className = "mod-tab-btn whitespace-nowrap px-4 py-3 rounded-t-xl text-xs sm:text-sm font-semibold text-cream-300 hover:text-white hover:bg-burgundy-800/60 transition";
+            });
+            const activeBtn = document.getElementById(`tab-${modKey}`);
+            if (activeBtn) {
+                activeBtn.className = "mod-tab-btn whitespace-nowrap px-4 py-3 rounded-t-xl text-xs sm:text-sm font-bold bg-cream-100 text-burgundy-950 border-t border-x border-cream-300 shadow";
+            }
+
+            renderModuleContent(modKey);
+        }
+
+        function openModuleTab(modKey) {
+            navigateTo('modules');
+            switchModuleTab(modKey);
+        }
+
+        function renderModuleContent(modKey) {
+            const data = CURRICULUM_DATA[modKey];
+            const area = document.getElementById('moduleContentArea');
+            if (!data || !area) return;
+
+            let sectionsHTML = data.sections.map(s => `
+                <div class="space-y-2 border-b border-gray-200 pb-4">
+                    <h4 class="text-base font-bold text-burgundy-900">${s.heading}</h4>
+                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">${s.content}</p>
+                </div>
+            `).join('');
+
+            area.innerHTML = `
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 border-b border-gray-300 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-burgundy-800 text-cream-100 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid ${data.icon}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-serif font-bold text-burgundy-950">${data.title}</h3>
+                            <p class="text-xs text-gray-600 mt-0.5">${data.summary}</p>
+                        </div>
+                    </div>
+                    ${sectionsHTML}
+                    <div class="pt-2 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 font-medium">Ready to evaluate your knowledge?</span>
+                        <button onclick="navigateTo('quiz')" class="px-4 py-2.5 bg-burgundy-800 hover:bg-burgundy-700 text-cream-100 font-bold rounded-xl text-xs transition shadow-md">
+                            Take Module Quiz <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ==================== PHISHING LAB SIMULATOR ==================== */
+        function loadPhishingScenario() {
+            const sc = PHISHING_SCENARIOS[APP_STATE.phishingIndex];
+            document.getElementById('simCounter').innerText = `Scenario ${APP_STATE.phishingIndex + 1} of ${PHISHING_SCENARIOS.length}`;
+            document.getElementById('simEmailFrom').innerText = sc.from;
+            document.getElementById('simEmailSubject').innerText = sc.subject;
+            document.getElementById('simEmailBody').innerHTML = sc.body;
+
+            document.getElementById('simFeedback').classList.add('hidden');
+            document.getElementById('simNextBtn').classList.add('hidden');
+            document.getElementById('simActionButtons').classList.remove('hidden');
+        }
+
+        function evaluatePhishingChoice(userThinksPhishing) {
+            const sc = PHISHING_SCENARIOS[APP_STATE.phishingIndex];
+            const isCorrect = userThinksPhishing === sc.isPhishing;
+
+            if (isCorrect) APP_STATE.phishingScore++;
+
+            const fb = document.getElementById('simFeedback');
+            fb.classList.remove('hidden');
+            fb.className = isCorrect ? 'p-4 rounded-xl text-xs sm:text-sm bg-emerald-100 text-emerald-950 border border-emerald-300 space-y-1' : 'p-4 rounded-xl text-xs sm:text-sm bg-red-100 text-red-950 border border-red-300 space-y-1';
+            
+            fb.innerHTML = `
+                <p class="font-bold">${isCorrect ? '<i class="fa-solid fa-circle-check text-emerald-700 mr-1"></i> Correct Analysis!' : '<i class="fa-solid fa-triangle-exclamation text-red-700 mr-1"></i> Incorrect Assessment!'}</p>
+                <p>${sc.explanation}</p>
+            `;
+
+            document.getElementById('simScore').innerText = `Lab Score: ${APP_STATE.phishingScore}/${APP_STATE.phishingIndex + 1}`;
+            document.getElementById('simActionButtons').classList.add('hidden');
+            document.getElementById('simNextBtn').classList.remove('hidden');
+        }
+
+        function nextPhishingScenario() {
+            APP_STATE.phishingIndex = (APP_STATE.phishingIndex + 1) % PHISHING_SCENARIOS.length;
+            loadPhishingScenario();
+        }
+
+        /* ==================== QUIZ ASSESSMENT ENGINE ==================== */
+        function startQuizEngine() {
+            const categoryVal = document.getElementById('quizCategorySelect').value;
+            
+            if (categoryVal === 'all') {
+                APP_STATE.activeQuizQuestions = [...QUESTION_BANK];
+            } else {
+                APP_STATE.activeQuizQuestions = QUESTION_BANK.filter(q => q.mod === categoryVal);
+            }
+
+            APP_STATE.activeQuizIndex = 0;
+            APP_STATE.activeQuizScore = 0;
+
+            document.getElementById('quizStartCard').classList.add('hidden');
+            document.getElementById('quizResultCard').classList.add('hidden');
+            document.getElementById('quizActiveCard').classList.remove('hidden');
+
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = APP_STATE.activeQuizQuestions[APP_STATE.activeQuizIndex];
+            const total = APP_STATE.activeQuizQuestions.length;
+
+            document.getElementById('qCounter').innerText = `Question ${APP_STATE.activeQuizIndex + 1} of ${total}`;
+            document.getElementById('qScore').innerText = `Score: ${APP_STATE.activeQuizScore}`;
+            document.getElementById('qProgressBar').style.width = `${((APP_STATE.activeQuizIndex + 1) / total) * 100}%`;
+            
+            document.getElementById('qCategoryBadge').innerText = q.category;
+            document.getElementById('qQuestionText').innerText = q.question;
+
+            const grid = document.getElementById('qOptionsGrid');
+            grid.innerHTML = q.options.map((opt, idx) => `
+                <button onclick="selectQuizOption(${idx})" class="q-opt-btn w-full p-3.5 rounded-xl border-2 border-gray-200 hover:border-burgundy-700 bg-white text-left text-xs sm:text-sm font-medium text-gray-800 transition flex items-center justify-between">
+                    <span>${opt}</span>
+                    <i class="fa-regular fa-circle text-gray-400"></i>
+                </button>
+            `).join('');
+
+            document.getElementById('qFeedbackBox').classList.add('hidden');
+            document.getElementById('qNextBtn').disabled = true;
+        }
+
+        function selectQuizOption(selectedIdx) {
+            const q = APP_STATE.activeQuizQuestions[APP_STATE.activeQuizIndex];
+            const buttons = document.querySelectorAll('.q-opt-btn');
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.answer) {
+                    btn.className = "q-opt-btn w-full p-3.5 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-left text-xs sm:text-sm font-bold text-emerald-950 flex items-center justify-between";
+                } else if (idx === selectedIdx) {
+                    btn.className = "q-opt-btn w-full p-3.5 rounded-xl border-2 border-red-600 bg-red-50 text-left text-xs sm:text-sm font-bold text-red-950 flex items-center justify-between";
+                }
+            });
+
+            const isCorrect = selectedIdx === q.answer;
+            if (isCorrect) APP_STATE.activeQuizScore++;
+
+            const fb = document.getElementById('qFeedbackBox');
+            fb.classList.remove('hidden');
+            fb.className = isCorrect ? 'p-4 rounded-xl text-xs bg-emerald-100 text-emerald-950 border border-emerald-300' : 'p-4 rounded-xl text-xs bg-red-100 text-red-950 border border-red-300';
+            fb.innerHTML = `<p class="font-bold">${isCorrect ? 'Correct Answer!' : 'Incorrect'}</p><p class="mt-0.5">${q.explanation}</p>`;
+
+            document.getElementById('qScore').innerText = `Score: ${APP_STATE.activeQuizScore}`;
+            document.getElementById('qNextBtn').disabled = false;
+        }
+
+        function nextQuizQuestion() {
+            APP_STATE.activeQuizIndex++;
+            if (APP_STATE.activeQuizIndex < APP_STATE.activeQuizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizActiveCard').classList.add('hidden');
+            document.getElementById('quizResultCard').classList.remove('hidden');
+
+            const total = APP_STATE.activeQuizQuestions.length;
+            const score = APP_STATE.activeQuizScore;
+            const percent = Math.round((score / total) * 100);
+
+            document.getElementById('resScore').innerText = `${score} / ${total}`;
+            document.getElementById('resPercent').innerText = `${percent}% Accuracy`;
+
+            const passed = percent >= 80;
+            document.getElementById('resTitle').innerText = passed ? 'Certification Requirement Met!' : 'Assessment Completed';
+            document.getElementById('resFeedback').innerText = passed ? 'Excellent work! You demonstrated high proficiency in cybersecurity principles.' : 'Good attempt! Review the curriculum modules to raise your score.';
+
+            const certBtn = document.getElementById('certBtn');
+            if (passed) {
+                certBtn.classList.remove('hidden');
+            } else {
+                certBtn.classList.add('hidden');
+            }
+
+            // Save Quiz Log
+            APP_STATE.quizAttempts.push({
+                user: APP_STATE.currentUser.name,
+                role: APP_STATE.currentUser.role,
+                score: `${score}/${total}`,
+                percent: percent,
+                date: new Date().toLocaleDateString()
+            });
+
+            try {
+                localStorage.setItem('cybersafe_logs', JSON.stringify(APP_STATE.quizAttempts));
+            } catch(e){}
+
+            document.getElementById('dashQuizCount').innerText = APP_STATE.quizAttempts.length;
+            document.getElementById('dashBestScore').innerText = `${percent}%`;
+
+            refreshAdminTable();
+        }
+
+        function generateCertificate() {
+            document.getElementById('certStudentName').innerText = APP_STATE.currentUser.name;
+            document.getElementById('certScore').innerText = document.getElementById('resPercent').innerText;
+            document.getElementById('certDate').innerText = new Date().toLocaleDateString();
+            document.getElementById('certificateModal').classList.remove('hidden');
+        }
+
+        function closeCertificate() {
+            document.getElementById('certificateModal').classList.add('hidden');
+        }
+
+        /* ==================== PASSWORD TOOLS ==================== */
+        function analyzeToolPassword() {
+            const val = document.getElementById('toolPassInput').value;
+            
+            const hasLen = val.length >= 12;
+            const hasUpper = /[A-Z]/.test(val);
+            const hasNum = /[0-9]/.test(val);
+            const hasSpec = /[^A-Za-z0-9]/.test(val);
+
+            updateChkUI('chkLen', 'chkLenIcon', hasLen);
+            updateChkUI('chkUpper', 'chkUpperIcon', hasUpper);
+            updateChkUI('chkNum', 'chkNumIcon', hasNum);
+            updateChkUI('chkSpec', 'chkSpecIcon', hasSpec);
+
+            let score = 0;
+            if (val.length > 0) score += 10;
+            if (val.length >= 8) score += 20;
+            if (hasLen) score += 30;
+            if (hasUpper) score += 15;
+            if (hasNum) score += 12;
+            if (hasSpec) score += 13;
+
+            const bar = document.getElementById('toolStrengthBar');
+            const label = document.getElementById('toolStrengthLabel');
+
+            bar.style.width = `${Math.min(score, 100)}%`;
+
+            if (score === 0) {
+                label.innerText = 'Waiting for input';
+                bar.className = 'h-3 rounded-full transition-all duration-300 w-0 bg-gray-300';
+            } else if (score < 40) {
+                label.innerText = 'Weak Password';
+                bar.className = 'h-3 rounded-full transition-all duration-300 bg-red-600';
+            } else if (score < 75) {
+                label.innerText = 'Moderate Password';
+                bar.className = 'h-3 rounded-full transition-all duration-300 bg-amber-500';
+            } else {
+                label.innerText = 'Strong Passphrase!';
+                bar.className = 'h-3 rounded-full transition-all duration-300 bg-emerald-600';
+            }
+        }
+
+        function updateChkUI(boxId, iconId, pass) {
+            const box = document.getElementById(boxId);
+            const icon = document.getElementById(iconId);
+            if (pass) {
+                box.className = 'p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 flex items-center gap-2 font-bold';
+                icon.className = 'fa-solid fa-circle-check text-emerald-600';
+            } else {
+                box.className = 'p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-500 flex items-center gap-2';
+                icon.className = 'fa-solid fa-circle-xmark text-red-500';
+            }
+        }
+
+        function toggleToolPassVisibility() {
+            const input = document.getElementById('toolPassInput');
+            const icon = document.getElementById('toolPassVisIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        /* ==================== ADMIN SYSTEM ==================== */
+        function handleAdminSaveModule(e) {
+            e.preventDefault();
+            const key = document.getElementById('adminModKey').value.trim();
+            const icon = document.getElementById('adminModIcon').value.trim();
+            const title = document.getElementById('adminModTitle').value.trim();
+            const summary = document.getElementById('adminModSummary').value.trim();
+            const content = document.getElementById('adminModContent').value.trim();
+
+            CURRICULUM_DATA[key] = {
+                title,
+                icon,
+                summary,
+                sections: [
+                    { heading: 'Updated Educational Lesson', content: content }
+                ]
+            };
+
+            renderHomeModulesGrid();
+            renderModuleTabs();
+            showToast('Module Saved', `Module '${title}' successfully added/updated.`);
+            
+            document.getElementById('adminModKey').value = '';
+            document.getElementById('adminModTitle').value = '';
+            document.getElementById('adminModSummary').value = '';
+            document.getElementById('adminModContent').value = '';
+        }
+
+        function refreshAdminTable() {
+            const tbody = document.getElementById('adminStudentTable');
+            if (!tbody) return;
+
+            const attempts = APP_STATE.quizAttempts;
+            document.getElementById('adminModCount').innerText = Object.keys(CURRICULUM_DATA).length;
+            document.getElementById('adminTotalQuizCount').innerText = attempts.length;
+
+            if (attempts.length > 0) {
+                const passes = attempts.filter(a => a.percent >= 80).length;
+                const passRate = Math.round((passes / attempts.length) * 100);
+                document.getElementById('adminPassRate').innerText = `${passRate}%`;
+            } else {
+                document.getElementById('adminPassRate').innerText = '0%';
+            }
+
+            if (attempts.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-4 text-center text-gray-500">No student quiz attempts recorded in local memory yet.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = attempts.map(at => `
+                <tr class="hover:bg-gray-50">
+                    <td class="p-3 font-bold text-gray-800">${at.user}</td>
+                    <td class="p-3 text-gray-600 uppercase text-[10px] font-bold">${at.role || 'student'}</td>
+                    <td class="p-3 text-gray-600">${at.date}</td>
+                    <td class="p-3 font-mono font-bold text-burgundy-900">${at.score} (${at.percent}%)</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${at.percent >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                            ${at.percent >= 80 ? 'Passed Certificate' : 'Completed'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function clearLocalProgress() {u
+            APP_STATE.quizAttempts = [];
+            try {
+                localStorage.removeItem('cybersafe_logs');
+            } catch(e){}
+            refreshAdminTable();
+            document.getElementById('dashQuizCount').innerText = '0';
+            document.getElementById('dashBestScore').innerText = 'N/A';
+            showToast('Logs Cleared', 'All local student progress logs reset.');
+        }
+
+        /* ==================== INITIALIZATION ==================== */
+        window.onload = function() {
+            loadUserSession();
+            renderHomeModulesGrid();
+            renderModuleTabs();
+            renderModuleContent('mod-1');
+            loadPhishingScenario();
+          updateUserUI();
+        };
+    </script>
+</body>
+</html>
